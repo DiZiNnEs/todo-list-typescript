@@ -1,0 +1,8 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "Todo-List monorepo project on Angular/Express ",
+  "repository": "https://github.com/DiZiNnEs/todo-list-typescript",
+  "author": "DiZiNnEs <dizinnes228@gmail.com>",
+  "license": "MIT"
+}

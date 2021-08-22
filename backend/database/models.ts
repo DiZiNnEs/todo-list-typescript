@@ -1,7 +1,7 @@
-
-const dbConfig = require('dotenv').config({path: './config.env'});
+require('dotenv').config({ path: './config.env' });
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
+
 
 const sequelize = new Sequelize({
   host: process.env.HOST,
@@ -11,6 +11,8 @@ const sequelize = new Sequelize({
   password: process.env.PASSWORD,
 });
 
+console.log(`HOST ${process.env.HOST} `);
+
 
 (async () => {
   await sequelize.authenticate()
@@ -19,7 +21,8 @@ const sequelize = new Sequelize({
 })()
 
 
-class User extends Model {}
+class User extends Model {
+}
 
 User.init({
   // Model attributes are defined here

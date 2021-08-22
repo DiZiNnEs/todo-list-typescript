@@ -2,14 +2,17 @@ require('dotenv').config({ path: './config.env' });
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-
-const sequelize = new Sequelize({
-  host: process.env.HOST,
+const dbConfig = {
+  host: process.env.DB_HOST,
   dialect: 'postgres',
-  database: process.env.DATABASE,
-  username: process.env.USERNAME,
-  password: process.env.PASSWORD,
-});
+  database: process.env.DB_NAME,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+};
+
+console.log(dbConfig);
+
+const sequelize = new Sequelize(dbConfig);
 
 console.log(`HOST ${process.env.HOST} `);
 
@@ -21,24 +24,17 @@ console.log(`HOST ${process.env.HOST} `);
 })()
 
 
-class User extends Model {
-}
-
-User.init({
-  // Model attributes are defined here
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false
+const User = sequelize.define("user", {
+  name: DataTypes.TEXT,
+  favoriteColor: {
+    type: DataTypes.TEXT,
+    defaultValue: 'green'
   },
-  lastName: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
-  }
-}, {
-  // Other model options go here
-  sequelize, // We need to pass the connection instance
-  modelName: 'User' // We need to choose the model name
+  age: DataTypes.INTEGER,
+  cash: DataTypes.INTEGER
 });
 
-// the defined model is the class itself
-console.log(User === sequelize.models.User); // true
+(async () => {
+  await sequelize.sync({ force: true });
+  // Code here
+})();
